@@ -1,0 +1,58 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- basic set up-->  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webpage</title>
+  <script src="mainframe.js" defer></script>
+
+  <!-- code for options bar-->
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 10px;
+        background-color: #b3b7e6;
+      }
+      #header {
+        width: 100%;
+        padding: 10px;  
+        text-align: left;
+        background-color: rgb(80, 78, 78);
+        color: white;
+        margin-bottom: 20px;
+      }
+      #options-bar {
+          background-color: black;
+          padding: 20px;
+      }
+      #loginbtn,
+      #signupbtn {
+        float: right;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      #loginSignupPage {
+        display: none;
+        text-align: center;
+      }
+      #colors {
+        text-align: center;
+      }
+  </style>
+</head>
+<body>
+    <!-- code for options bar-->
+    <div id="options-bar">
+        <button id="loginbtn">Log In</button>
+        <button id="signupbtn">Create Account</button>
+    </div>
+    <div id="header">
+        <h1>Clothing Color Matching!</h1>
+        <p>Create an account and lets get you clothes matching!</p>
+    </div>
+</body>
+</html>
