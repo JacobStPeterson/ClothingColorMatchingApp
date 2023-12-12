@@ -6,6 +6,7 @@ function validateLogin(event) {
       alert("Login button pressed");
   
       // Return false to prevent the form from submitting
+      window.location.href = 'home.html';
       return false;
     }
   
