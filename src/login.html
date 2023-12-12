@@ -1,44 +1,98 @@
-
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Screen</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 10px;
-      background-color: #f0f0f0;
-      text-align: center;
-    }
-    #loginForm {
-      max-width: 300px;
-      margin: 50px auto;
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #loginForm {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
+    #continue-btn {
+      font-size: 16px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+    #back-btn:hover {
+      background-color: #a8aaac;
+    }
+    #continue-btn:hover {
+      background-color: #2980b9;
+    }
+
+    #loginMessage {
+      margin-top: 20px;
+      color: red;
+    }
+
+    #forgot-password-btn {
+      font-size: 14px;
+      color: #3498db;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 10px;
+    }
+  </style>
+
   <div id="loginForm">
     <h2>Login</h2>
-    <form onsubmit="return validateLogin()">
+    <form onsubmit="return validateLogin(event)">
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-      <br>
+      <input type="text" id="username" name="username">
+
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      <br>
-      <button type="submit">Login</button>
+      <input type="password" id="password" name="password">
+
+      <button type="button" id="back-btn" onclick="back()">Back</button>
+      <button type="submit" id="continue-btn">Continue</button>
       <p id="loginMessage"></p>
     </form>
   </div>
+
+  <div>
+    <button type="button" id="forgot-password-btn" onclick="forgotPassword()">Forgot Password?</button>
+  </div>
+
+  <script src="login.js" defer></script>
 </body>
 </html>
