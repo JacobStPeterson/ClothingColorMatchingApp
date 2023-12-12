@@ -17,7 +17,7 @@ function setupWebpage() {
     var signupbtn = document.getElementById('signupbtn');
     // event listeners for the buttons
     loginbtn.addEventListener('click', function() {window.location.href = 'login.html';});
-    signupbtn.addEventListener('click', function() {alert('Not implemented yet');});
+    signupbtn.addEventListener('click', function() {window.location.href = 'signup.html';});
     /*************************************************/
   }
   
