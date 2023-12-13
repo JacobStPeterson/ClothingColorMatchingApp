@@ -1,72 +1,104 @@
-
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-            body {
-            font-family: "Lato", sans-serif;
-            }
+<html lang="en">
 
-            .sidenav {
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            padding: 15px;
+            color: white;
+            text-align: left;
+        }
+
+        #mySidenav {
             height: 100%;
             width: 0;
             position: fixed;
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #111;
+            background-color: #333;
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
-            }
+        }
 
-            .sidenav a {
-            padding: 8px 8px 8px 32px;
+        #mySidenav a {
+            padding: 15px;
             text-decoration: none;
-            font-size: 25px;
+            font-size: 20px;
             color: #818181;
             display: block;
             transition: 0.3s;
-            }
+            border-bottom: 1px solid #555;
+        }
 
-            .sidenav a:hover {
+        #mySidenav a:hover {
             color: #f1f1f1;
-            }
+        }
 
-            .sidenav .closebtn {
+        #mySidenav .closebtn {
             position: absolute;
             top: 0;
             right: 25px;
-            font-size: 36px;
+            font-size: 30px;
             margin-left: 50px;
-            }
+        }
 
-            @media screen and (max-height: 450px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
-            }
-        </style>
-    </head>
-    <body>
+        #main {
+            transition: margin-left 0.5s;
+            padding: 20px;
+        }
 
-        <div id="mySidenav" class="sidenav">
+        #openNavBtn {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #header_text {
+            margin-top: 20px;
+            font-size: 36px;
+            color: #333;
+        }
+
+        #dynamic_frame {
+            width: 90%;
+            height: 600px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <span id="openNavBtn" onclick="openNav()">&#9776; userName</span>
+    </header>
+
+    <div id="mySidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#" onclick="loadWardrobe()">Wardrobe</a>
         <a href="#" onclick="loadLaundry()">Laundry</a>
         <a href="#" onclick="loadWishList()">WishList</a>
         <a href="#" onclick="loadSettings()">Settings</a>
         <a href="#" onclick="logout()">Log out</a>
-        </div>
+    </div>
 
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;userName </span>
+    <div id="main">
+        <h2 id="header_text">Wardrobe</h2>
+        <iframe id="dynamic_frame"></iframe>
+    </div>
 
-        <script src="home.js" defer></script>
-    </body>
-    <body>
-        <h2>
-            <div id="header_text">Wardrobe</div>
-            <iframe id="dynamic_frame" width="100%" height="400"></iframe>
-        </h2>
-    </body>
-</html> 
+    <script src="home.js" defer></script>
+</body>
+
+</html>

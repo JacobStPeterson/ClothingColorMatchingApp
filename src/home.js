@@ -1,5 +1,5 @@
 
-var header_text = "Wardrobe";
+var header_text;
 var iframe;
 
 function load_iframe(html_filename) {
@@ -49,3 +49,8 @@ function loadSettings() {
     reloadHeader();
     load_iframe("Settings.html");
 }
+
+
+// will run immediately
+header_text = "Wardrobe";
+load_iframe("wardrobe.html");
