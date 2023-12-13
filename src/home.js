@@ -59,71 +59,74 @@ load_iframe("wardrobe.html");
 
 
 /*------------- Wardrobe.html functions -------------------------*/
-var shirt_imgage_array = [];
-var pants_imgage_array = [];
-loadImagesIntoArrays();
+const wardrobeManager = {
+    shirtImageArray: [],
+    pantsImageArray: [],
+    folderPath: '../users/json',
 
-// Assume you have a function to load images dynamically based on clothing type
-function loadImages(clothingType) {
-    // Example: Get the images for shirts
-    var imagesContainer = document.getElementById(`${clothingType}-images`);
-    imagesContainer.innerHTML = ''; // Clear existing images
+    loadImagesIntoArrays: function () {
+        fs.readdir(this.folderPath, (err, files) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
 
-    // Assume you have a function that returns an array of image URLs
-    //var imageUrls = getImagesForClothingType(clothingType);
-    switch (clothingType) {
-        case'shirt':
-            var imageUrls = shirt_imgage_array;
-            break;
-        case 'pants':
-            var imageUrls = pants_imgage_array;
-            break;
-    }
+            files.forEach(file => {
+                if (path.extname(file) === '.json') {
+                    const filePath = path.join(this.folderPath, file);
+                    this.readAndProcessJsonFile(filePath);
+                }
+            });
+        });
+    },
 
-    // Dynamically create img elements and append them to the container
-    imageUrls.forEach(function (imageUrl) {
-        var img = document.createElement('img');
-        img.src = imageUrl;
-        imagesContainer.appendChild(img);
-    });
-}
+    readAndProcessJsonFile: function (filePath) {
+        const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        console.log(jsonData);
 
-// Example function that returns an array of image URLs based on clothing type
-function loadImagesIntoArrays() {
-    // Replace this with your actual logic to fetch image URLs
-    // For demonstration, using static URLs here
+        switch (jsonData.type) {
+            case 'shirt':
+                this.shirtImageArray.push(jsonData.imagePath);
+                break;
+            case 'pants':
+                this.pantsImageArray.push(jsonData.imagePath);
+                break;
+        }
+    },
 
-    // loop through all json objects in file
-    const fs = require('fs');
-    const path = require('path');
-    const folderPath = '../users/wardrobe';
+    loadImages: function (clothingType) {
+        const imagesContainer = document.getElementById(`${clothingType}-images`);
+        imagesContainer.innerHTML = ''; // Clear existing images
 
-    fs.readdir(folderPath, (err, files) => {
+        let imageArray;
+        switch (clothingType) {
+            case 'shirts':
+                imageArray = this.shirtImageArray;
+                break;
+            case 'pants':
+                imageArray = this.pantsImageArray;
+                break;
+            default:
+                return;
+        }
 
-        if (err) {
-            console.error(err);
+        if (imageArray.length === 0) {
             return;
         }
 
-        files.forEach(file => {
-            if (path.extname(file) === '.json') {
-                const filePath = path.join(folderPath, file);
-                readAndProcessJsonFile(filePath);
-            }
+        // Dynamically create img elements and append them to the container
+        imageArray.forEach(imagePath => {
+            const img = document.createElement('img');
+            img.src = imagePath;
+            imagesContainer.appendChild(img);
         });
-    });
-}
+    },
+};
 
-function readAndProcessJsonFile(filePath) {
+// Call the function to load images into arrays on script load
+wardrobeManager.loadImagesIntoArrays();
 
-    jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    switch (jsonData.type) {
-        case 'shirt':
-            shirt_imgage_array.push(jsonData.imagePath);
-            break;
-        case 'pants':
-            pants_imgage_array.push(jsonData.imagePath);
-            break;
-    }
+function loadImages(clothingType) {
+    wardrobeManager.loadImages(clothingType);
 }
 /*------------- Wardrobe.html functions -------------------------*/
