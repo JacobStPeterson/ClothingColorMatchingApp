@@ -1,12 +1,76 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Variable Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Wardrobe</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        section {
+            display: block;
+            text-align: left;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .clothing-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .clothing-item {
+            margin: 10px;
+        }
+
+        .clothing-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .clothing-images {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex; /* Ensure flexbox layout for images */
+        }
+
+        .clothing-images img {
+            width: 200px;
+            height: auto;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
-    <div>This is the wardrobe page</div>
+
+    <section>
+        <div class="clothing-list">
+            <h2><a href="#" class="clothing-link" onclick="loadImages('shirts')">Shirts</a></h2>
+            <div class="clothing-images" id="shirts-images"></div>
+        </div>
+
+        <div class="clothing-list">
+            <h2><a href="#" class="clothing-link" onclick="loadImages('pants')">Pants</a></h2>
+            <div class="clothing-images" id="pants-images"></div>
+        </div>
+
+        <!-- Add more clothing types as needed -->
+    </section>
+
+    <script src="home.js" defer></script>
 </body>
+
 </html>

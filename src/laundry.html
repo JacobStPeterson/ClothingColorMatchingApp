@@ -1,12 +1,116 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Variable Content</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Wardrobe</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        section {
+            display: block;
+            text-align: left;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .clothing-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .clothing-item {
+            margin: 10px;
+        }
+
+        .clothing-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .clothing-images img {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <div>This is the laundry page</div>
+
+    <section>
+        <div class="clothing-list">
+            <h2><a href="shirts.html" class="clothing-link">Shirts</a></h2>
+            <ul class="clothing-list">
+                <li class="clothing-item">
+                    <div class="clothing-images">
+                        <!-- Example images for shirts -->
+                        <img src="images/shirts/shirt-1.jpg">
+                        <img src="images/shirts/shirt-2.jpg">
+                        <img src="images/shirts/shirt-3.jpg">
+                    </div>
+                </li>
+                <!-- Add more shirt items as needed -->
+            </ul>
+        </div>
+
+        <div class="clothing-list">
+            <h2><a href="pants.html" class="clothing-link">Pants</a></h2>
+            <ul class="clothing-list">
+                <li class="clothing-item">
+                    <div class="clothing-images">
+                        <!-- Example images for pants -->
+                        <img src="images/pants/pants-1.jpg">
+                        <img src="images/pants/pants-2.jpg">
+                        <img src="images/pants/pants-3.jpg">
+                    </div>
+                </li>
+                <!-- Add more pants items as needed -->
+            </ul>
+        </div>
+
+        <div class="clothing-list">
+            <h2><a href="pants.html" class="clothing-link">Jackets</a></h2>
+            <ul class="clothing-list">
+                <li class="clothing-item">
+                    <div class="clothing-images">
+                        <!-- Example images for pants -->
+                        <img src="images/pants/pants-1.jpg">
+                        <img src="images/pants/pants-2.jpg">
+                        <img src="images/pants/pants-3.jpg">
+                    </div>
+                </li>
+                <!-- Add more pants items as needed -->
+            </ul>
+        </div>
+
+        <div class="clothing-list">
+            <h2><a href="pants.html" class="clothing-link">Shoes</a></h2>
+            <ul class="clothing-list">
+                <li class="clothing-item">
+                    <div class="clothing-images">
+                        <!-- Example images for pants -->
+                        <img src="images/pants/pants-1.jpg">
+                        <img src="images/pants/pants-2.jpg">
+                        <img src="images/pants/pants-3.jpg">
+                    </div>
+                </li>
+                <!-- Add more pants items as needed -->
+            </ul>
+        </div>
+
+        <!-- Add more clothing types as needed -->
+    </section>
 </body>
+
 </html>
