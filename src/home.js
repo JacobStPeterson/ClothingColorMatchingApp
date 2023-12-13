@@ -1,9 +1,10 @@
 
 var header_text = "Wardrobe";
-var dynamic_frame;
+var iframe;
 
 function load_iframe(html_filename) {
-    dynamic_frame.src = html_filename;
+    iframe = document.getElementById("dynamic_frame");
+    iframe.src = html_filename;
 }
 
 function reloadHeader() {
@@ -28,19 +29,23 @@ function logout() {
 function loadWardrobe() {
     header_text = "Wardrobe";
     reloadHeader();
+    load_iframe("Wardrobe.html");
 }
 
 function loadLaundry() {
     header_text = "Laundry";
     reloadHeader();
+    load_iframe("Laundry.html");
 }
 
 function loadWishList() {
     header_text = "WishList";
     reloadHeader();
+    load_iframe("WishList.html");
 }
 
 function loadSettings() {
     header_text = "Settings";
     reloadHeader();
+    load_iframe("Settings.html");
 }
