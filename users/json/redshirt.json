@@ -1,3 +1,6 @@
 {
-    "imagePath": "imgs/dog.jpeg"
+    "name": "Red Shirt",
+    "type": "shirt",
+    "color": "Red",
+    "imagePath": "img/redshirt.jpg"
 }

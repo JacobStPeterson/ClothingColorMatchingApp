@@ -2,5 +2,5 @@
     "name": "Blue Shirt",
     "type": "shirt",
     "color": "Blue",
-    "imagePath": "../img/blueshirt.jpg"
+    "imagePath": "img/blueshirt.jpg"
   }

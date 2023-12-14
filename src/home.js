@@ -2,6 +2,7 @@
 
 /*------------- Home.html functions -------------------------*/
 var header_text;
+header_text = "wardrobe";
 var iframe;
 
 function load_iframe(html_filename) {
@@ -51,82 +52,85 @@ function loadSettings() {
     reloadHeader();
     load_iframe("Settings.html");
 }
-
-// will run immediately
-header_text = "Wardrobe";
-load_iframe("wardrobe.html");
 /*------------- Home.html functions -------------------------*/
 
 
 /*------------- Wardrobe.html functions -------------------------*/
-const wardrobeManager = {
-    shirtImageArray: [],
-    pantsImageArray: [],
-    folderPath: '../users/json',
 
-    loadImagesIntoArrays: function () {
-        fs.readdir(this.folderPath, (err, files) => {
-            if (err) {
-                console.error(err);
-                return;
+const shirtImageArray = new Array();
+const pantsImageArray = new Array();
+var folderPath = '/users/json';
+
+function loadImagesIntoArrays () {
+    fetch('/users/json-list')
+        .then(response => {
+            console.log('Response:', response);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            return response.json();
+        })
+        .then(data => {
+            const jsonFiles = data.jsonFiles;
+            // Map each fetchAndProcessJsonFile call to a promise
+            const promises = jsonFiles.map(jsonFile => fetchAndProcessJsonFile(jsonFile));
+            // Use Promise.all to wait for all promises to resolve
+            return Promise.all(promises);
+        })
+        .catch(error => console.error('Error fetching JSON files:', error));
+        alert(shirtImageArray.length);
+    }
 
-            files.forEach(file => {
-                if (path.extname(file) === '.json') {
-                    const filePath = path.join(this.folderPath, file);
-                    this.readAndProcessJsonFile(filePath);
-                }
-            });
-        });
-    },
-
-    readAndProcessJsonFile: function (filePath) {
-        const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        console.log(jsonData);
-
-        switch (jsonData.type) {
-            case 'shirt':
-                this.shirtImageArray.push(jsonData.imagePath);
-                break;
-            case 'pants':
-                this.pantsImageArray.push(jsonData.imagePath);
-                break;
-        }
-    },
-
-    loadImages: function (clothingType) {
-        const imagesContainer = document.getElementById(`${clothingType}-images`);
-        imagesContainer.innerHTML = ''; // Clear existing images
-
-        let imageArray;
-        switch (clothingType) {
-            case 'shirts':
-                imageArray = this.shirtImageArray;
-                break;
-            case 'pants':
-                imageArray = this.pantsImageArray;
-                break;
-            default:
-                return;
-        }
-
-        if (imageArray.length === 0) {
-            return;
-        }
-
-        // Dynamically create img elements and append them to the container
-        imageArray.forEach(imagePath => {
-            const img = document.createElement('img');
-            img.src = imagePath;
-            imagesContainer.appendChild(img);
-        });
-    },
-};
-
-// Call the function to load images into arrays on script load
-wardrobeManager.loadImagesIntoArrays();
-
-function loadImages(clothingType) {
-    wardrobeManager.loadImages(clothingType);
+function fetchAndProcessJsonFile(jsonFile) {
+    fetch(`/users/json/${jsonFile}`)
+        .then(response => response.json())
+        .then(data => {
+            var str_to_push = `../users/${data.imagePath}`;
+            switch (data.type) {
+                case 'shirt':
+                    shirtImageArray.push(str_to_push);
+                    break;
+                case 'pants':
+                    pantsImageArray.push(str_to_push);
+                    break;
+                // Add more cases as needed
+            }
+        })
+        .catch(error => console.error(`Error fetching ${jsonFile}:`, error));
 }
+
+function loadImages (clothingType) {
+    const imagesContainer = document.getElementById(`${clothingType}-images`);
+    imagesContainer.innerHTML = ''; // Clear existing images
+
+    let imageArray;
+    switch (clothingType) {
+        case 'shirts':
+            imageArray = shirtImageArray;
+            break;
+        case 'pants':
+            imageArray = pantsImageArray;
+            break;
+        default:
+            return "Invalid Clothing Type";
+    }
+
+    if (imageArray.length === 0) {
+        return "No Image Found";
+    }
+
+    // Dynamically create img elements and append them to the container
+    imageArray.forEach(imagePath => {
+        const img = document.createElement('img');
+        img.src = imagePath;
+        imagesContainer.appendChild(img);
+    });
+}
+loadImagesIntoArrays();
+
 /*------------- Wardrobe.html functions -------------------------*/
+
+
+
+// lastly load the html file
+load_iframe("wardrobe.html");
