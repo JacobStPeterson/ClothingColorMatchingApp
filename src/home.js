@@ -78,7 +78,6 @@ function loadImagesIntoArrays () {
             return Promise.all(promises);
         })
         .catch(error => console.error('Error fetching JSON files:', error));
-        alert(shirtImageArray.length);
     }
 
 function fetchAndProcessJsonFile(jsonFile) {
