@@ -1,3 +1,4 @@
+const sha512 = require('js-sha512');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -7,7 +8,44 @@ const port = 3000;
 const server = http.createServer((req, res) => {
     const filePath = '.' + req.url;
 
-    if (filePath.startsWith('./users/json/')) {
+    if (req.url === '/authenticate' && req.method === 'POST') {
+        let requestBody = '';
+        req.on('data', chunk => {
+            requestBody += chunk.toString();
+        });
+
+        req.on('end', () => {
+            try {
+                const {username, password} = JSON.parse(requestBody);
+                const jsonCont = fs.readFileSync('./users/accounts.json');
+                const hashtable = JSON.parse(jsonCont);
+          
+                //console.log(hashtable);
+                var hashed_password = sha512(password);
+
+                //console.log("hashed pw: " + hashed_password);
+                if ((username in hashtable) && hashed_password === hashtable[username]) {
+                    
+                    console.log('match established');
+                    res.writeHead(200, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({success: true}));
+                }
+                else {
+                    res.writeHead(401, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({success: false, message: 'Invalid Credentials'}));
+                }
+            
+            }
+            catch (error) {
+                console.error('Error parsing request body:', error);
+                res.writeHead(400, {'Content-Type': 'text/plain'});
+                res.end('Bad Request');
+            }
+        })
+
+    }
+    
+    else if (filePath.startsWith('./users/json/')) {
         // Serve JSON files
         fs.readFile(filePath, (err, data) => {
             if (err) {
