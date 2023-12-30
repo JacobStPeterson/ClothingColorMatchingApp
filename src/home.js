@@ -133,3 +133,4 @@ loadImagesIntoArrays();
 
 // lastly load the html file
 load_iframe("wardrobe.html");
+document.getElementById("userName").textContent = localStorage.getItem("username");

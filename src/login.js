@@ -25,6 +25,7 @@ async function validateLogin(event) {
         const data = await response.json();
 
         if (data.success) {
+          window.localStorage.setItem('username', username);
           window.location.href = 'home.html';
         }
         else {
