@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
 
     }
     
-    else if (filePath.startsWith('./users/json/')) {
+    else if (filePath.startsWith('./users/') && filePath.includes('/json/') && filePath.endsWith('json')) {
         // Serve JSON files
         fs.readFile(filePath, (err, data) => {
             if (err) {
@@ -56,7 +56,7 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(data);
         });
-    } else if (filePath.startsWith('./users/img/')) {
+    } else if (filePath.startsWith('./users') && filePath.includes('/img/')) {
         // Serve images
         fs.readFile(filePath, (err, data) => {
             if (err) {
@@ -105,9 +105,9 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': contentType });
             res.end(data);
         });
-    } else if (req.url === '/users/json-list') {
+    } else if (filePath.startsWith('./users/') && filePath.includes('/json')) {
         // Access data from the users folder
-        fs.readdir('./users/json/', (err, files) => {
+        fs.readdir(filePath, (err, files) => {
             if (err) {
                 console.error('Error reading directory:', err);
                 res.writeHead(500, { 'Content-Type': 'text/plain' });

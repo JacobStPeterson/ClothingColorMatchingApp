@@ -4,6 +4,7 @@
 var header_text;
 header_text = "wardrobe";
 var iframe;
+var username = localStorage.getItem("username");
 
 function load_iframe(html_filename) {
     iframe = document.getElementById("dynamic_frame");
@@ -59,10 +60,9 @@ function loadSettings() {
 
 const shirtImageArray = new Array();
 const pantsImageArray = new Array();
-var folderPath = '/users/json';
 
 function loadImagesIntoArrays () {
-    fetch('/users/json-list')
+    fetch(`/users/${username}/json`)
         .then(response => {
             console.log('Response:', response);
             if (!response.ok) {
@@ -81,7 +81,7 @@ function loadImagesIntoArrays () {
     }
 
 function fetchAndProcessJsonFile(jsonFile) {
-    fetch(`/users/json/${jsonFile}`)
+    fetch(`/users/${username}/json/${jsonFile}`)
         .then(response => response.json())
         .then(data => {
             var str_to_push = `../users/${data.imagePath}`;
