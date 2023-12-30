@@ -44,7 +44,60 @@ const server = http.createServer((req, res) => {
         })
 
     }
-    
+    else if (req.url === '/initializeAccount' && req.method === 'POST')
+    {
+        let requestBody = '';
+        req.on('data', chunk => {
+            requestBody += chunk.toString();
+        });
+
+        req.on('end', () => {
+            try {
+                const {username, password, email} = JSON.parse(requestBody);
+                const jsonCont = fs.readFileSync('./users/accounts.json');
+                const hashtable = JSON.parse(jsonCont);
+          
+                // ensure that user name doesnt already exist
+                if (username in hashtable) 
+                {
+                    res.end('User already exists');
+                }
+                /**
+                 * if (email in (where emails are stored)) {res.end('Email already}
+                 */
+
+                // hash the password
+                var hashed_password = sha512(password);
+
+                // input the username and password hash into accounts.json
+                hashtable[username] = hashed_password;
+                // save hashtable 
+                const jsonStr = JSON.stringify(hashtable);
+                fs.writeFileSync('./users/accounts.json', jsonStr);
+
+                // make user directory, img directory and json directory
+                fs.mkdir(`./users/${username}/`, (err) => {
+                    if (err) return console.error('name');
+                });
+                fs.mkdir(`./users/${username}/img/`, (err) => {
+                    if (err) return console.error('img');
+                });
+                fs.mkdir(`./users/${username}/json/`, (err) => {
+                    if (err) return console.error('json');
+                });
+
+                console.log('Account Created');
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                console.log("head written");
+                res.end(JSON.stringify({success: true}));
+            }
+            catch (error) {
+                console.error('Error parsing request body:', error);
+                res.writeHead(401, {'Content-Type': 'application/json'});
+                res.end(JSON.stringify({success: false, message: 'Bad Credentials'}));
+            }
+        })
+    }
     else if (filePath.startsWith('./users/') && filePath.includes('/json/') && filePath.endsWith('json')) {
         // Serve JSON files
         fs.readFile(filePath, (err, data) => {
