@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "busboy": "^1.6.0",
     "js-sha512": "^0.8.0"
   }
 }

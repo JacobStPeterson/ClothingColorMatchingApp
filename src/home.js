@@ -137,12 +137,17 @@ loadImagesIntoArrays();
 
 
 /*------------- add new clothings feature ------------------------*/
+
+const inputImg = document.getElementById('imgInput')
+const img = document.getElementById('img')
+
 function openUploadModal() {
     document.getElementById('uploadModal').style.display = 'flex';
 }
 
 function closeUploadModal() {
     document.getElementById('uploadModal').style.display = 'none';
+    selectedImage = null;
 }
 
 function openDropArea() {
@@ -150,10 +155,19 @@ function openDropArea() {
     closeUploadModal();
 }
 
-function handleFileUploadButton() {
-    var image = document.getElementById('fileInput').click();
-    alert (image);
-}
+function getImg(event) {
+     const file = event.target.files[0]; // 0 = get the first file
+
+     // console.log(file);
+
+     let url = window.URL.createObjectURL(file);
+
+     // console.log(url)
+
+     img.src = url
+  }
+inputImg?.addEventListener('change', getImg)
+
 
 function handleDragAndDrop(event) {
     event.preventDefault();
@@ -162,6 +176,20 @@ function handleDragAndDrop(event) {
     if (files.length > 0) {
         // Handle the selected files (e.g., upload or display them)
         console.log("Selected Files:", files);
+    }
+}
+
+function toggleScreens() {
+
+    if (img.src != null) {
+
+        var initialScreen = document.getElementById("initialScreen");
+        var formScreen = document.getElementById("formScreen");
+
+        initialScreen.style.display = "none";
+        formScreen.style.display = "block";
+    } else {
+        alert("Please select an image first.");
     }
 }
 

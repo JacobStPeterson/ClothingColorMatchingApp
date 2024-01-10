@@ -2,6 +2,7 @@ const sha512 = require('js-sha512');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const busboy = require('busboy');
 
 const port = 3000;
 
@@ -173,6 +174,23 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(jsonResponse);
         });
+    } else if (req.url === '/upload') {
+        
+        let filename = ''
+        const bb = busboy({ headers: req.headers });
+        bb.on('file', (name, file, info) => {
+            filename = info.filename;
+            const saveTo = path.join(__dirname, filename);
+            file.pipe(fs.createWriteStream(saveTo));
+        });
+
+        bb.on('close', () => {
+            res.writeHead(200, {'Content-Type': 'text/plain' });
+            res.end(`upload success: ${filename}`);
+        });
+
+        req.pipe(bb);
+
     } else {
         // Handle other requests (e.g., HTML pages)
         fs.readFile('./index.html', (err, data) => {

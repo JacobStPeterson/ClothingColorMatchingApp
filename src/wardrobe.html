@@ -136,6 +136,11 @@
             font-size: 14px;
         }
 
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
     </style>
 </head>
 
@@ -166,14 +171,46 @@
     </section>
 
     <!-- code for upload new wardrobe pop up -->
+
     <div id="uploadModal">
         <div id="uploadModalContent">
-            <button onclick="handleFileUploadButton()">Upload from Computer</button>
-            <div id="drop-area" onclick="openDropArea()">
-                <p>Drag and Drop Files Here</p>
-                <input type="file" id="fileInput" style="display: none;" onchange="handleDragAndDrop(event)">
+            <!-- Initial screen with upload button and drag-and-drop area -->
+            <div id="initialScreen">
+                <input id="imgInput" accept="image/*" type="file">
+                <!--<input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" onchange="uploadFile(this)"/>-->
+                <div id="drop-area" onclick="openDropArea()">
+                    <p>Drag and Drop Files Here</p>
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleDragAndDrop(event)">
+                </div>
             </div>
+    
+            <!-- Screen with the form -->
+            <div id="formScreen" style="display: none;">
+                <img id='img' alt="images">
+                <form>
+                    <label for="type">Choose Type:</label>
+                    <select id="type" name="type">
+                        <option value="T-shirt/top">T-shirt/top</option>
+                        <option value="pants">pants</option>
+                        <option value="sweater">sweater</option>
+                        <option value="dress">dress</option>
+                        <option value="coat">coat</option>
+                        <option value="sandal">sandal</option>
+                        <option value="shirt">shirt</option>
+                        <option value="sneaker">sneaker</option>
+                        <option value="bag">bag</option>
+                        <option value="ankle boot">ankle boot</option>
+                    </select>
+                    <label for="color">Choose Color</label>
+                    <select id="color" name="'color">
+                        <option value="red">red</option>
+                    </select>
+                </form>
+            </div>
+    
+            <!-- Buttons for both screens -->
             <button class="small" onclick="closeUploadModal()">Cancel</button>
+            <button class="small" onclick="toggleScreens()">Submit</button>
         </div>
     </div>
     <script src="home.js" defer></script>
