@@ -60,6 +60,7 @@ function loadSettings() {
 
 const shirtImageArray = new Array();
 const pantsImageArray = new Array();
+const shoesImageArray = new Array();
 
 function loadImagesIntoArrays () {
     fetch(`/users/${username}/json`)
@@ -92,6 +93,8 @@ function fetchAndProcessJsonFile(jsonFile) {
                 case 'pants':
                     pantsImageArray.push(str_to_push);
                     break;
+                case 'shoes':
+                    shoesImageArray.push(str_to_push);
                 // Add more cases as needed
             }
         })
@@ -109,6 +112,9 @@ function loadImages (clothingType) {
             break;
         case 'pants':
             imageArray = pantsImageArray;
+            break;
+        case 'shoes':
+            imageArray = shoesImageArray;
             break;
         default:
             return "Invalid Clothing Type";
@@ -130,7 +136,36 @@ loadImagesIntoArrays();
 /*------------- Wardrobe.html functions -------------------------*/
 
 
+/*------------- add new clothings feature ------------------------*/
+function openUploadModal() {
+    document.getElementById('uploadModal').style.display = 'flex';
+}
 
+function closeUploadModal() {
+    document.getElementById('uploadModal').style.display = 'none';
+}
+
+function openDropArea() {
+    // Additional actions specific to the drop area can be added here
+    closeUploadModal();
+}
+
+function handleFileUploadButton() {
+    var image = document.getElementById('fileInput').click();
+    alert (image);
+}
+
+function handleDragAndDrop(event) {
+    event.preventDefault();
+    var files = event.target.files || event.dataTransfer.files;
+
+    if (files.length > 0) {
+        // Handle the selected files (e.g., upload or display them)
+        console.log("Selected Files:", files);
+    }
+}
+
+/*------------- add new clothings feature ------------------------*/
 // lastly load the html file
 load_iframe("wardrobe.html");
 document.getElementById("userName").textContent = localStorage.getItem("username");

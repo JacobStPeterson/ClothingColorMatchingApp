@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Your existing styles and head content here -->
+</head>
+<body>
+
+    <section>
+        <!-- Your existing clothing sections here -->
+
+        <!-- Button to open the upload modal -->
+        <button onclick="openUploadModal()">Upload New Clothing</button>
+    </section>
+
+    <!-- Upload modal -->
+    <div id="uploadModal">
+        <div id="uploadModalContent">
+            <p>Choose an option to upload new clothing:</p>
+            <button onclick="handleFileInputClick()">Upload from Computer</button>
+            <div id="drop-area" onclick="openDropArea()">
+                <p>Drag and Drop Files Here</p>
+                <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
+            </div>
+            <button class="small" onclick="closeUploadModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Your existing JavaScript code here
+
+        function handleFileInputClick() {
+            // Simulate an upload process (you would typically send this data to a server)
+            var input = document.getElementById('fileInput');
+            if (input.files.length > 0) {
+                var file = input.files[0];
+                
+                // Simulate an AJAX request to send the file data to the server
+                var formData = new FormData();
+                formData.append('file', file);
+
+                // Replace the URL with your server endpoint for handling file uploads
+                var uploadUrl = 'https://example.com/upload'; 
+                
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', uploadUrl, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Handle the server's response (if needed)
+                        console.log('File uploaded successfully!');
+                    }
+                };
+                xhr.send(formData);
+            }
+
+            // Close the modal after handling the file (you may want to adjust this based on your needs)
+            closeUploadModal();
+        }
+
+        // Your other functions here
+    </script>
+</body>
+</html>

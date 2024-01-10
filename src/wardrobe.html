@@ -21,6 +21,7 @@
             margin: 20px;
         }
 
+        /* styles for the clothing lists */
         .clothing-list {
             list-style-type: none;
             padding: 0;
@@ -51,11 +52,100 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+
+        /* style for the upload pop up*/
+        /* Styles for the modal */
+        section button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #8390e2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        section button:hover {
+            background-color: #8b8b8b;
+        }
+        #uploadModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #uploadModalContent {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        #uploadModalContent p {
+            margin-bottom: 20px;
+        }
+
+        #uploadModalContent button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #8390e2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+
+        #uploadModalContent button:hover {
+            background-color: #8b8b8b;
+        }
+
+        #drop-area {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #uploafdModalContent #drop-area {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #uploadModalContent #drop-area:hover {
+            border-color: #8b8b8b;
+        }
+
+        /* makes the cancel button smaller */
+        #uploadModalContent button.small {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 
 <body>
+    <section>
+        <!-- Button to open the upload modal -->
+        <button onclick="openUploadModal()">Upload New Clothing</button>
+    </section>
 
+    <!-- lists of all the different clothing options -->
     <section>
         <div class="clothing-list">
             <h2><a href="#" class="clothing-link" onclick="loadImages('shirts')">Shirts</a></h2>
@@ -66,10 +156,26 @@
             <h2><a href="#" class="clothing-link" onclick="loadImages('pants')">Pants</a></h2>
             <div class="clothing-images" id="pants-images"></div>
         </div>
+            <h2><a href="#" class="clothing-link" onclick="loadImages('shoes')">Shoes</a></h2>
+            <div class="clothing-images" id="shoes-images"></div>
+        <div>
+
+        </div>
 
         <!-- Add more clothing types as needed -->
     </section>
 
+    <!-- code for upload new wardrobe pop up -->
+    <div id="uploadModal">
+        <div id="uploadModalContent">
+            <button onclick="handleFileUploadButton()">Upload from Computer</button>
+            <div id="drop-area" onclick="openDropArea()">
+                <p>Drag and Drop Files Here</p>
+                <input type="file" id="fileInput" style="display: none;" onchange="handleDragAndDrop(event)">
+            </div>
+            <button class="small" onclick="closeUploadModal()">Cancel</button>
+        </div>
+    </div>
     <script src="home.js" defer></script>
 </body>
 
